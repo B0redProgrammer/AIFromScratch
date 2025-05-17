@@ -3,8 +3,7 @@ typedef struct layer {
   void * next;
   void * (* eval)(void*);
 
-  float * vals;
-  int numInVals;
+  struct Vector vals;
 };
 
 typedef struct fullyConnected {
@@ -12,8 +11,7 @@ typedef struct fullyConnected {
 
   int numOutVals;
 
-  float * weights;
-  int numWeights;
+  struct Matrix weights;
 };
 
 public void addLayer(void * prevLayer, void * newLayer) {

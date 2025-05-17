@@ -1,4 +1,5 @@
+#include "math.c"
 
-void evalFullyConnected(void * layer) {
-  
+int evalFullyConnected(void * layer) {
+  struct fullyConnected * layer = (struct fullyConnected *) layer;
 }

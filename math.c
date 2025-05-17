@@ -38,3 +38,16 @@ void printVec(struct Vector * vec) {
     printf("%f,\n", vec->vals[i]);
   }
 }
+
+void freeMatrix(struct Matrix * m) {
+  for(int i = 0; i<m->m; i++) {
+    free(m->vals[i]);
+  }
+  free(m->vals);
+  free(m);
+}
+
+void freeVector(struct Vector * v) {
+  free(v->vals);
+  free(v);
+}
