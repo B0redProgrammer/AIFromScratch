@@ -1,53 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct Vector {
-  float * vals;
-  int numVals;
-};
-
-typedef struct Matrix {
-  float ** vals;
-  int n;
-  int m;
-};
-
-int matVecMult(struct Matrix * m, struct Vector * vec, struct Vector * ret) {
-  if(m->n != vec->numVals) {
+int vecMult(float * vec, int numVals, float * vec2, int numVals2, float * ret) {
+  if(numVals != numVals2) {
     return 0;
   }
 
-  ret->numVals = m->m;
-  if((ret->vals = malloc(sizeof(float)*ret->numVals)) == NULL) {
-    return 0;
-  }
-
-  for(int i = 0; i<m->m; i++) {
-    float sum = 0.0;
-    for(int j = 0; j<m->n; j++) {
-       sum += vec->vals[j] * m->vals[i][j];
+  for(int i = 0; i<numVals; i++) {
+    ret[i] = 0.0;
+    for(int j = 0: j<numVals2; j++) {
+      ret[i] += vec[i]*vec2[j]; 
     }
-    ret->vals[i] = sum;
   }
+
   return 1;
 }
 
-void printVec(struct Vector * vec) {
-  printf("Printing Vector: \n");
-  for(int i = 0; i<vec->numVals; i++) {
-    printf("%f,\n", vec->vals[i]);
-  }
-}
 
-void freeMatrix(struct Matrix * m) {
-  for(int i = 0; i<m->m; i++) {
-    free(m->vals[i]);
-  }
-  free(m->vals);
-  free(m);
-}
-
-void freeVector(struct Vector * v) {
-  free(v->vals);
-  free(v);
-}
