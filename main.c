@@ -1,24 +1,39 @@
 #include "math.c"
 
 int main() {
-  float * vec1 = malloc(sizeof(float)*3);
+  float * vec;
+  if((vec = malloc(sizeof(float)*3)) == NULL) { return EXIT_FAILURE; }
 
-  vec1[0] = 1.0;
-  vec1[1] = 2.0;
-  vec1[2] = 3.0;
+  vec[0] = 3.0;
+  vec[1] = -1.0;
+  vec[2] = 4.0;
 
-  float * vec2 = malloc(sizeof(float)*3);
+  float ** matr;
+  if((matr = malloc(sizeof(float *)*3)) == NULL) { return EXIT_FAILURE; }
+  for(int i = 0; i<3; i++) {
+    if((matr[i] = malloc(sizeof(float)*3)) == NULL) { return EXIT_FAILURE; }
+  }
 
-  vec2[0] = 2.0;
-  vec2[1] = 1.0;
-  vec2[2] = 3.0;
+  matr[0][0] = 1; matr[0][1] = 0; matr[0][2] = -2;
+  matr[1][0] = 0; matr[1][1] = 3; matr[1][2] = -1;
+  matr[2][0] = 1; matr[2][1] = 2; matr[2][2] = 1;
+  
+  float * ret;
+  if((ret = malloc(sizeof(float)*3)) == NULL) { return EXIT_FAILURE; }
 
-  float res = vecMult(vec1, 3, vec2, 3);
-
-  printf("%f", res);
+  matrVecMult(matr, 3, 3, vec, 3, ret);
  
-  free(vec1);
-  free(vec2);
+  for(int i = 0; i<3; i++) {
+    printf("%f \n", ret[i]);
+  }
+
+  free(vec);
+  free(ret);
+
+  for(int i = 0; i<3; i++) {
+    free(matr[i]);
+  }
+  free(matr);
 
   return 0;
 }
