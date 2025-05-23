@@ -1,29 +1,24 @@
 #include "math.c"
 
 int main() {
-  struct Matrix m;
-  
-  m.n = 2;
-  m.m = 3;
-  m.vals = malloc(sizeof(float*)*m.m);
-  for(int i = 0; i<m.m; i++) {
-    m.vals[i] = malloc(sizeof(float)*m.n);
-  }
+  float * vec1 = malloc(sizeof(float)*3);
 
-  m.vals[0][0] = 4; m.vals[0][1] = 2;
-  m.vals[1][0] = 1; m.vals[1][1] = 7;
-  m.vals[2][0] = 5; m.vals[2][1] = 3;
+  vec1[0] = 1.0;
+  vec1[1] = 2.0;
+  vec1[2] = 3.0;
 
-  struct Vector v;
-  v.numVals = 2;
-  v.vals = malloc(sizeof(float)*v.numVals);
-  v.vals[0] = 6;
-  v.vals[1] = 3;
+  float * vec2 = malloc(sizeof(float)*3);
 
-  struct Vector res; 
-  if(matVecMult(&m, &v, &res)) {
-    printVec(&res);
-  }
+  vec2[0] = 2.0;
+  vec2[1] = 1.0;
+  vec2[2] = 3.0;
+
+  float res = vecMult(vec1, 3, vec2, 3);
+
+  printf("%f", res);
+ 
+  free(vec1);
+  free(vec2);
 
   return 0;
 }
