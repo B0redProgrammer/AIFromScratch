@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-
 float vecMult(float * vec, int numVals, float * vec2, int numVals2) {
   if(numVals != numVals2) {
     return NAN;
