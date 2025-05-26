@@ -19,8 +19,8 @@ int matrVecMult(float ** mat, int n, int m, float * vec, int numVals, float * re
     return 0;
   }
 
-  for(int i = 0; i<m; i++) {
-    ret[i] = vecMult(mat[i], n, vec, numVals);
+  for(int i = 0; i<n; i++) {
+    ret[i] = vecMult(mat[i], m, vec, numVals);
   }
   return 1;
 }

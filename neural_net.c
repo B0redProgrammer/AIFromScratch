@@ -3,19 +3,15 @@ typedef struct layer {
   void * next;
   void * (* eval)(void*);
 
-  struct Vector vals;
+  float * vals;
+  int numVals;
 };
 
 typedef struct fullyConnected {
   struct layer Layer;
 
-  int numOutVals;
+  int inputSize;
 
-  struct Matrix weights;
+  float ** weights;
 };
 
-public void addLayer(void * prevLayer, void * newLayer) {
-  struct layer * prevLayerComps = ((struct layer *) prevLayer);
-
-  prevLayerComps.next = newLayer;
-}
