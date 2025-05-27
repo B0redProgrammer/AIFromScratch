@@ -24,3 +24,22 @@ int matrVecMult(float ** mat, int n, int m, float * vec, int numVals, float * re
   }
   return 1;
 }
+
+float ssconv(float ** mat, float ** mat2, int n, int m) {
+  float ret = 0.0;
+  for(int i = 0; i<n; i++) {
+    for(int j = 0; j<n; j++) {
+      ret += mat[i][j] * mat2[i][j];
+    }
+  }
+  return ret;
+}
+
+int convolution(float ** mat, int n, int m, float ** mat2, int n2, int m2, float ** ret, int stride) {
+  for(int i = 0; i < (int)(n/stride - (n2-1)); i++) {
+    for(int j = 0; i < (int)(m/stride - (m2-1)); i++) {
+       
+    }
+  }
+  return 0;
+} 
