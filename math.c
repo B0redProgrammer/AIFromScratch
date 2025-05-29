@@ -50,3 +50,15 @@ int convolution(float ** mat, int n, int m, float ** mat2, int n2, int m2, float
   }
   return 1;
 } 
+
+float calcEX(int acc, float exponent) {
+  float sum = 1.0;
+  int factorial = 1;
+  float carry = exponent;
+  for(int i = 1; i<acc; i++) {
+    sum += (carry / factorial);
+    factorial *= (i+1);
+    carry *= exponent;
+  }
+  return sum;
+}
