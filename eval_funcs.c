@@ -14,7 +14,7 @@ void evalFullyConnected(void * layer, float * vals, int numVals) {
 void evalReLU(void * layer, float * vals, int numVals) {
   struct layer * Layer = (struct layer *) layer;
 
-  if(Layer->numVals != numVals) {
+  if(layer->numVals != numVals) {
     printf("ReLU function evaluating wrong amount of values\n");
     exit(1);
   }
@@ -35,5 +35,18 @@ void evalSigmoid(void * layer, float * vals, int numVals) {
 
   for(int i = 0; i<numVals; i++) {
     Layer->vals[i] = 1/(1+calcEx(acc, -vals[i]));
+  }
+}
+
+void evalIdentity(void * layer, float * vals, int numVals) {
+  struct layer * Layer = (struct layer *) layer;
+
+  if(Layer->numVals != numVals) {
+    printf("Identity function evaluating wrong amount of values\n");
+    exit(1);
+  }
+
+  for(int i = 0; i<numVals; i++) {
+    Layer->vals[i] = vals[i];
   }
 }
