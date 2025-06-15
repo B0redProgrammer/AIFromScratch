@@ -53,3 +53,17 @@ void addToNet(void * layer, char * identifier, void * args) {
 
   }
 }
+
+void evalNet(void * layer, float * input, int inputSize) {
+  if(layer == NULL) { return; }
+
+  struct layer * Layer = (struct layer *) layer;
+  Layer->eval(layer);
+
+  while(layer->next != NULL) {
+    struct layer * nLayer = (struct layer *) layer->next;
+    nLayer->eval(layer->next, layer->vals, layer->numVals);
+    Layer = nLayer;
+    layer = layer->next;
+  }
+}
