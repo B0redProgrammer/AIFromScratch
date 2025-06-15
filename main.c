@@ -1,6 +1,5 @@
-#include "math.c"
+#include "neural_net.c"
 
 int main() {
-  printf("%f\n", calcEX(20, -1));
   return 1;
 }

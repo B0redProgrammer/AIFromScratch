@@ -1,3 +1,5 @@
+#include "eval_funcs.c"
+
 typedef struct layer {
   char * identifier;
   void * next;
@@ -16,42 +18,53 @@ typedef struct fullyConnected {
 };
 
 typedef struct ActivationLayer {
-  struct layer layer;
+  struct layer Layer;
 };
 
 typedef struct Identity {
-  struct layer layer;
+  struct layer Layer;
 };
 
-void addToNet(void * layer, char * identifier, void * args) {
+void * errorCheckedMalloc(int size) {
+  void * ret;
+  if((ret = (void *) malloc(size)) == NULL) {
+    printf("Malloc failed\n");
+    exit(1);
+  }
+  return ret;
+}
+
+void * addToNet(void * layer, char * identifier, void * args) {
   if(layer == NULL) {
-    if((layer = (void *) malloc(sizeof(struct Identity))) == NULL) {
-      exit(1);
-    }
+    layer = errorCheckedMalloc(sizeof(struct Identity));
+    layer->Layer.eval = &evalIdentity();
   }
 
   struct layer * Layer = (struct layer *) layer;
   while(Layer->next != NULL) { Layer = (struct layer *) Layer->next; }
   
   if(!strcmp(identifier, "fullyConnected")) {
-     if((Layer->next = (void *) malloc(sizeof(struct fullyConnected))) == NULL)
-    {
-      printf("Malloc failed\n");
-      exit(1);
-    }
+    Layer->next = errorCheckedMalloc(sizeof(struct fullyConnected));
     struct fullyConnected * temp = (struct fullyConnected *) Layer->next;
     int * data = (int *) args;
 
     temp->Layer.numVals = data[0];
-    if((temp->Layer.vals = malloc(sizeof(float)*data[0])) == NULL) {
-      printf("Malloc failed\n");
-      exit(1);
-    }
+    temp->Layer.vals = (float *) errorCheckedMalloc(sizeof(float) * data[0]);
+    temp->Layer.eval = &evalFullyConnected();
 
     temp->inputSize = Layer->numVals;
-    if((temp->weights = malloc(sizeof(float *)*)))
+    temp->weights = (float **) errorCheckedMalloc(sizeof(float *)*temp->inputSize);
+
+    for(int i = 0; i<temp->inputSize; i++) {
+      temp->weights[i] = (float *) errorCheckedMalloc(sizeof(float) * data[0]);
+    }
+  }
+  else if(!strcmp(identifier, "ReLU")) {
+    Layer->next = errorCheckedMalloc(sizeof(struct ActivationLayer));
+    struct layer * temp = (struct layer *) Layer->next;
 
   }
+  return layer;
 }
 
 void evalNet(void * layer, float * input, int inputSize) {

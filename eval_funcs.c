@@ -1,10 +1,11 @@
 #include "math.c"
+#include "neural_net.c"
 #include <stdio.h>
 
 void evalFullyConnected(void * layer, float * vals, int numVals) {
-  struct fullyConnected * layer = (struct fullyConnected *) layer;
+  struct fullyConnected * Layer = (struct fullyConnected *) layer;
    
-  if(matrVecMul(layer->weights, layer->layer->numVals, layer->inputSize, vals, numVals, layer->layer->vals)) {
+  if(matrVecMult(Layer->weights, Layer->layer->numVals, Layer->inputSize, vals, numVals, Layer->layer->vals)) {
     return;
   } 
   printf("Weight-Value multiplication failed \n");
