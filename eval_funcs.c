@@ -1,5 +1,5 @@
-#include "math.c"
-#include "neural_net.c"
+#include "math.h"
+#include "neural_net.h"
 #include <stdio.h>
 
 void evalFullyConnected(void * layer, float * vals, int numVals) {
