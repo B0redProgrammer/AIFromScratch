@@ -8,4 +8,4 @@ int convolution(float ** mat, int n, int m, float ** mat2, int n2, int m2, float
 
 float calcEX(int acc, float exponent);
 
-#endif MATH
+#endif
