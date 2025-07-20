@@ -5,9 +5,13 @@
 #include <stdlib.h>
 
 void evalFullyConnected(void * layer, float * vals, int numVals) {
+  struct layer * super = (struct layer *) layer;
   struct fullyConnected * Layer = (struct fullyConnected *) layer;
    
-  if(matrVecMult(Layer->weights, Layer->Layer.numVals, Layer->inputSize, vals, numVals, Layer->Layer.vals)) {
+  if(matrVecMult(Layer->weights, super.numVals, Layer->inputSize, vals, numVals, super.vals)) {
+    for(int i = 0; i<super.numVals; i++) {
+      super.vals[i] += Layer->bias;
+    }
     return;
   } 
   printf("Weight-Value multiplication failed \n");

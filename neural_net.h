@@ -16,6 +16,7 @@ struct fullyConnected {
   int inputSize;
 
   float ** weights;
+  float bias;
 };
 
 struct ActivationLayer {
